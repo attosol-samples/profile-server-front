@@ -8,23 +8,12 @@
   <script>
     function save(name, id, email, birthday, avatar) {
       $.ajax({
-        type: "POST",
+        type: "PUT",
         url: 'profile',
         data: JSON.stringify({ fullName: name, id: id, email: email, birthday: birthday, avatar: avatar }),
-        success: console.log('saved'),
+        success: $("#status").text("Saved Successfully"),
         contentType: "application/json",
         dataType: 'json'
-      });
-    }
-
-    function fetch() {
-      $.ajax({
-        type: "GET",
-        url: "profile/all",
-        dataType: "json",
-        success: function (data) {
-          console.log(data);
-        }
       });
     }
 
@@ -33,9 +22,7 @@
         type: "DELETE",
         url: "profile",
         dataType: "json",
-        success: function (data) {
-          console.log(data);
-        }
+        success: $("#status").text("Deleted Successfully"),
       });
     }
   </script>
@@ -57,6 +44,17 @@
       '<%- profile.avatar %>')">Save Profile</button>
     <button class="btn btn-success btn-lg" onclick="location.reload();" role="button">Reload</button>
     <button class="btn btn-danger btn-lg" onclick="deleteProfile();" role="button">Delete</button>
+  </div>
+  <div id="status" class="alert alert-primary"><%= status %></div>
+  <div style="padding:0 20px;">
+    Ahoy there!
+    <p>Don't expect a lot from this demo :-)</p>
+    <p>It might help you understand a few concepts around docker. This app needs a Redis server where it could save the
+      profile details. By default, if you keep reloading the page
+      or hit the reload button, it will show you random profiles. Once you click the save button, it saves the profile
+      in Redis and from that point onwards, reloading a page would cause the saved profile to show up. However,
+      you can delete the profile and reload to go back to original behavior.
+    </p>
   </div>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </body>

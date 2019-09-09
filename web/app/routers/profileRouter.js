@@ -7,9 +7,8 @@ const debug = require('debug')('attosol:profileRouter:info'),
 
 debug('Loading');
 
-router.get('/hello', profileController.hello);
-router.get('/profile', profileController.newProfile);
-router.post('/profile', profileController.saveProfile);
+router.get('/profile', profileController.getProfile);
+router.put('/profile', profileController.saveProfile);
 router.delete('/profile', profileController.deleteProfile);
 
 module.exports = router;

@@ -20,7 +20,7 @@ class ProfileController {
     }
   }
 
-  static async newProfile(req, res, next) {
+  static async getProfile(req, res, next) {
     try {
       // check my profile in Redis
       client.json_get('myProfile', '.', function (err, value) {
@@ -28,9 +28,9 @@ class ProfileController {
         // if it exists, return the profile
         if (value) {
           debug(value);
-          res.render('profileView', { profile: JSON.parse(value) });
+          res.render('profileView', { profile: JSON.parse(value), status: "Loaded saved profile from Redis" });
         } else {
-          res.render('profileView', { profile: randomProfile.profile() });
+          res.render('profileView', { profile: randomProfile.profile(), status: "Random profile" });
         }
       });
     } catch (err) {
