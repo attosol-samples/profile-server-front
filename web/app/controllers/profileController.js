@@ -23,14 +23,22 @@ class ProfileController {
   static async getProfile(req, res, next) {
     try {
       // check my profile in Redis
-      client.json_get('myProfile', '.', function (err, value) {
+      client.json_get(`${process.env.HOSTING_ENDPOINT}`, '.', function (err, value) {
         if (err) { throw err; }
         // if it exists, return the profile
         if (value) {
           debug(value);
-          res.render('profileView', { profile: JSON.parse(value), status: "Loaded saved profile from Redis" });
+          res.render('profileView', {
+            profile: JSON.parse(value),
+            status: "Loaded saved profile from Redis",
+            server: process.env.HOSTING_ENDPOINT
+          });
         } else {
-          res.render('profileView', { profile: randomProfile.profile(), status: "Random profile" });
+          res.render('profileView', {
+            profile: randomProfile.profile(),
+            status: "Random profile",
+            server: process.env.HOSTING_ENDPOINT
+          });
         }
       });
     } catch (err) {
@@ -41,7 +49,7 @@ class ProfileController {
   static async saveProfile(req, res, next) {
     try {
       const body = req.body;
-      client.json_set('myProfile', '.', JSON.stringify(body), function (err) {
+      client.json_set(`${process.env.HOSTING_ENDPOINT}`, '.', JSON.stringify(body), function (err) {
         if (err) { throw err; }
       });
       res.send('Saved');
@@ -52,7 +60,7 @@ class ProfileController {
 
   static async deleteProfile(req, res, next) {
     try {
-      client.json_del('myProfile', '.', function (err) {
+      client.json_del(`${process.env.HOSTING_ENDPOINT}`, '.', function (err) {
         if (err) { throw err; }
         debug('Profile deleted');
         res.send('Profile Deleted');
