@@ -7,6 +7,7 @@ services:
     environment:
       - NODE_ENV=development
       - DEBUG=attosol:*
+      - HOSTING_ENDPOINT=one
     image: "profile-server-front"
     ports:
       - "9000:9000"

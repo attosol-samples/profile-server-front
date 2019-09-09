@@ -34,10 +34,10 @@ app.set('view engine', 'ejs');
 
 // Set the default folder for views
 app.set('views', './app/views');
-routers.map(router => app.use('/api/', router));
+routers.map(router => app.use(`/${process.env.HOSTING_ENDPOINT}/`, router));
 
 // Default Page
-app.get(['/', '/api'], (req, res) => {
+app.get(['/'], (req, res) => {
   res.send('Ok');
 });
 
