@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Current Profile</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script>
+    function save(name, id, email, birthday, avatar) {
+      $.ajax({
+        type: "POST",
+        url: 'profile',
+        data: JSON.stringify({ fullName: name, id: id, email: email, birthday: birthday, avatar: avatar }),
+        success: console.log('saved'),
+        contentType: "application/json",
+        dataType: 'json'
+      });
+    }
+
+    function fetch() {
+      $.ajax({
+        type: "GET",
+        url: "profile/all",
+        dataType: "json",
+        success: function (data) {
+          console.log(data);
+        }
+      });
+    }
+
+    function deleteProfile() {
+      $.ajax({
+        type: "DELETE",
+        url: "profile",
+        dataType: "json",
+        success: function (data) {
+          console.log(data);
+        }
+      });
+    }
+  </script>
+</head>
+
+<body>
+  <div class="jumbotron">
+    <h1 class="display-4"><%- profile.fullName %></h1>
+    <img src="<%- profile.avatar %>" width="100px">
+    <p class="lead">
+      Id: <%- profile.id %> <br>
+      Birthday: <%- profile.birthday %> <br>
+      Email: <%- profile.email %></p>
+    <button class="btn btn-primary btn-lg" role="button" onclick="save(
+      '<%- profile.fullName %>', 
+      '<%- profile.id %>', 
+      '<%- profile.email %>', 
+      '<%- profile.birthday %>',
+      '<%- profile.avatar %>')">Save Profile</button>
+    <button class="btn btn-success btn-lg" onclick="location.reload();" role="button">Reload</button>
+    <button class="btn btn-danger btn-lg" onclick="deleteProfile();" role="button">Delete</button>
+  </div>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</body>
+
+</html>

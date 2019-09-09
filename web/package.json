@@ -1,0 +1,26 @@
+{
+  "name": "profile-server-front",
+  "version": "1.0.0",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "npm run start:$NODE_ENV",
+    "start:development": "pm2-docker start pm2.config.json",
+    "start:production": "node app/server.js"
+  },
+  "devDependencies": {
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.18.0",
+    "pm2": "^3.5.1"
+  },
+  "dependencies": {
+    "debug": "^4.1.1",
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
+    "morgan": "^1.9.1",
+    "random-profile-generator": "^2.3.0",
+    "redis": "^2.8.0",
+    "redis-rejson": "^1.0.0",
+    "serve-favicon": "^2.5.0"
+  }
+}

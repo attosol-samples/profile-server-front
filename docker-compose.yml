@@ -1,0 +1,19 @@
+version: "3.5"
+
+services:
+  server-front:
+    build: ./
+    container_name: "profile-server-front"
+    environment:
+      - NODE_ENV=development
+      - DEBUG=attosol:*
+    image: "profile-server-front"
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./web:/web
+  server-back:
+    container_name: "profile-server-back"
+    image: redislabs/rejson
+    ports:
+      - "6379:6379"
