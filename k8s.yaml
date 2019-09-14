@@ -12,11 +12,11 @@ spec:
       - backend:
           serviceName: profile-server-front-1
           servicePort: 9000
-        path: /one(/|$)(.*)
+        path: /one
       - backend:
           serviceName: profile-server-front-2
           servicePort: 9000
-        path: /two(/|$)(.*)
+        path: /two
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
